@@ -2,17 +2,15 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10">
-        <h1>Books</h1>
+        <h1>Plants</h1>
         <hr><br><br>
         <alert :message=message v-if="showMessage"></alert>
-        <button type="button" class="btn btn-success btn-sm" v-b-modal.book-modal>Add Book</button>
-        <br><br>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Read?</th>
+              <th scope="col">Plant</th>
+              <th scope="col"># Photos</th>
+              <th scope="col">Xp</th>
               <th></th>
             </tr>
           </thead>
@@ -28,16 +26,10 @@
                 <div class="btn-group" role="group">
                   <button
                           type="button"
-                          class="btn btn-warning btn-sm"
+                          class="btn btn-info btn-sm"
                           v-b-modal.book-update-modal
-                          @click="editBook(book)">
-                      Update
-                  </button>
-                  <button
-                          type="button"
-                          class="btn btn-danger btn-sm"
-                          @click="onDeleteBook(book)">
-                      Delete
+                          @click="focusPlant(book)">
+                      Focus
                   </button>
                 </div>
               </td>
@@ -159,20 +151,6 @@ export default {
           console.error(error);
         });
     },
-    addBook(payload) {
-      const path = 'http://localhost:5000/books';
-      axios.post(path, payload)
-        .then(() => {
-          this.getBooks();
-          this.message = 'Book added!';
-          this.showMessage = true;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.log(error);
-          this.getBooks();
-        });
-    },
     initForm() {
       this.addBookForm.title = '';
       this.addBookForm.author = '';
@@ -182,75 +160,8 @@ export default {
       this.editForm.author = '';
       this.editForm.read = [];
     },
-    onSubmit(evt) {
-      evt.preventDefault();
-      this.$refs.addBookModal.hide();
-      let read = false;
-      if (this.addBookForm.read[0]) read = true;
-      const payload = {
-        title: this.addBookForm.title,
-        author: this.addBookForm.author,
-        read, // property shorthand
-      };
-      this.addBook(payload);
-      this.initForm();
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      this.$refs.addBookModal.hide();
-      this.initForm();
-    },
-    editBook(book) {
+    plantFocus(book) {
       this.editForm = book;
-    },
-    onSubmitUpdate(evt) {
-      evt.preventDefault();
-      this.$refs.editBookModal.hide();
-      let read = false;
-      if (this.editForm.read[0]) read = true;
-      const payload = {
-        title: this.editForm.title,
-        author: this.editForm.author,
-        read,
-      };
-      this.updateBook(payload, this.editForm.id);
-    },
-    updateBook(payload, bookID) {
-      const path = `http://localhost:5000/books/${bookID}`;
-      axios.put(path, payload)
-        .then(() => {
-          this.getBooks();
-          this.message = 'Book updated!';
-          this.showMessage = true;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.error(error);
-          this.getBooks();
-        });
-    },
-    onResetUpdate(evt) {
-      evt.preventDefault();
-      this.$refs.editBookModal.hide();
-      this.initForm();
-      this.getBooks(); // why?
-    },
-    removeBook(bookID) {
-      const path = `http://localhost:5000/books/${bookID}`;
-      axios.delete(path)
-        .then(() => {
-          this.getBooks();
-          this.message = 'Book removed!';
-          this.showMessage = true;
-        })
-        .catch((error) => {
-          // eslint-disable-next-line
-          console.error(error);
-          this.getBooks();
-        });
-    },
-    onDeleteBook(book) {
-      this.removeBook(book.id);
     },
   },
   created() {
