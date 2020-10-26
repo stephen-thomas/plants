@@ -5,7 +5,7 @@ Horticulture Platform for the Home Enthusiast
 ![Plant Banner](docs/plant_banner.png)
 
 ## Docs  
-- Photo Storage - ![photo_storage.md](docs/photo_stroage.md) 
+- Photo Storage - ![photo_storage.md](./docs/photo_stroage.md) 
 
 ## Want to try this application?
 
