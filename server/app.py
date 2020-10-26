@@ -1,3 +1,9 @@
+"""
+Flask Application for Plants
+
+This hosts API routes & backend services. 
+"""
+
 import uuid
 
 from flask import Flask, jsonify, request
@@ -7,21 +13,9 @@ from flask_cors import CORS
 BOOKS = [
     {
         'id': uuid.uuid4().hex,
-        'title': 'Snake Boiii',
-        'author': '95',
-        'read': True
-    },
-    {
-        'id': uuid.uuid4().hex,
-        'title': 'Fig Tree',
-        'author': '21',
-        'read': False
-    },
-    {
-        'id': uuid.uuid4().hex,
-        'title': 'Succulent 1',
-        'author': '2',
-        'read': True
+        'name': 'Snake Boiii',
+        'numPictures': '95',
+        'pictures': ["s3://path_to_picture1", "s3://path_to_picture2"]
     }
 ]
 
@@ -34,7 +28,6 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
-
 
 def remove_book(book_id):
     for book in BOOKS:

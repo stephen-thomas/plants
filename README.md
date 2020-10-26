@@ -4,7 +4,10 @@ Horticulture Platform for the Home Enthusiast
 
 ![Plant Banner](docs/plant_banner.png)
 
-## Want to use this project?
+## Docs  
+- Photo Storage - ![photo_storage.md](docs/photo_stroage.md) 
+
+## Want to try this application?
 
 1. Fork/Clone
 
