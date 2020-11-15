@@ -25,6 +25,12 @@ PLANTS = [
     }
 ]
 
+USER = {
+    'id': 0,
+    'name': 'Steve',
+    'numPlants': '2',
+}
+
 # configuration
 DEBUG = True
 
@@ -34,14 +40,6 @@ app.config.from_object(__name__)
 
 # enable CORS
 CORS(app, resources={r'/*': {'origins': '*'}})
-
-def remove_plant(plant_id):
-    for plant in PLANTS:
-        if plant['id'] == plant_id:
-            PLANTS.remove(plant)
-            return True
-    return False
-
 
 # sanity check route
 @app.route('/ping', methods=['GET'])
@@ -65,23 +63,10 @@ def all_plants():
         response_object['plants'] = PLANTS
     return jsonify(response_object)
 
-
-@app.route('/plants/<plant_id>', methods=['PUT', 'DELETE'])
-def single_plant(plant_id):
+@app.route('/user', methods=['GET'])
+def get_users():
     response_object = {'status': 'success'}
-    if request.method == 'PUT':
-        post_data = request.get_json()
-        remove_plant(plant_id)
-        PLANTS.append({
-            'id': uuid.uuid4().hex,
-            'title': post_data.get('title'),
-            'author': post_data.get('author'),
-            'read': post_data.get('read')
-        })
-        response_object['message'] = 'Plant updated!'
-    if request.method == 'DELETE':
-        remove_plant(plant_id)
-        response_object['message'] = 'Plant removed!'
+    response_object['user'] = USER
     return jsonify(response_object)
 
 

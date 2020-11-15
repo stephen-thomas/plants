@@ -11,7 +11,8 @@
 
     <b-collapse id="navbar-toggle-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="/">My Bois</b-nav-item>
+        <b-nav-item href="/">Home</b-nav-item>
+        <b-nav-item href="/me">Me</b-nav-item>
         <b-nav-item href="/Ping">Health Check</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
